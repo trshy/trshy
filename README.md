@@ -1,0 +1,2 @@
+# trshy
+Trashcan locator
