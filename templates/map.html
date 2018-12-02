@@ -40,21 +40,21 @@
             });
         {% for trashcan in trashcans %}
             console.log("{{ trashcan.latitude }}");
-            var location = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
+            var location{{ forloop.counter0 }} = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
 
-            var contentString = '<p>lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}</p>';
+            var contentString{{ forloop.counter0 }} = '<p>lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}</p>';
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
+            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
+                content: contentString{{ forloop.counter0 }}
             });
 
-            var marker = new google.maps.Marker({
-                position: location,
+            var marker{{ forloop.counter0 }} = new google.maps.Marker({
+                position: location{{ forloop.counter0 }},
                 map: map,
                 title: 'Trash{{ forloop.counter0 }}'
             });
-            google.maps.event.addListener(marker, 'click', function(){
-                infowindow.open(map, this);
+            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function(){
+                infowindow{{ forloop.counter0 }}.open(map, this);
             });
         {% endfor %}
     }
