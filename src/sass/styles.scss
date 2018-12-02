@@ -1,0 +1,59 @@
+/* Variables */
+
+$primary: #a2f5bf;
+$secondary: #79b9ec;
+
+$font-family-base: "IBM Plex Sans", sans-serif;
+
+/* Import */
+
+@import "bootstrap/bootstrap.scss";
+
+/* Document */
+
+html,
+body {
+  margin: 0;
+}
+
+/* Helper Classes */
+
+.max-vh {
+  height: 100vh;
+}
+
+.max-vw {
+  width: 100vw;
+}
+
+/* Button */
+
+.btn-lg {
+  border-radius: 0;
+}
+
+/* Hero */
+
+.hero-container {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  max-width: 768px;
+}
+
+.hero__main {
+  background-image: linear-gradient(rgba(21,21,21,0.5),rgba(21,21,21,0.5)),url(https://source.unsplash.com/eV2x6CmfIns);
+}
+
+/* Text */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 4.0rem;
+}
