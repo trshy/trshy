@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% block head_title %}Profile {% endblock head_title %}
 {% load static from staticfiles %}
     {% if request.user.is_authenticated %}
     <img src="{% static 'img/hero.jpg' %}" id="bg" alt="trash bin image">
