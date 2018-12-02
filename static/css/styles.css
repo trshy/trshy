@@ -6788,8 +6788,23 @@ a.text-dark:hover, a.text-dark:focus {
 
 html,
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  transition: background-color 0.3s; }
+
+/* Images */
+.img {
+  width: 100%;
+  height: auto; }
+
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%; }
 
 /* Helper Classes */
 .max-vh {
@@ -6818,12 +6833,19 @@ body {
   background-size: cover;
   background-position: center; }
 
-.hero-content {
+.hero-card {
   width: 100%;
   max-width: 768px; }
 
+.hero-title {
+  word-wrap: break-word; }
+
 .hero__main {
-  background-image: linear-gradient(rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(https://source.unsplash.com/eV2x6CmfIns); }
+  background-image: linear-gradient(rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url("../img/hero.jpg"); }
+
+.hero-profile {
+  width: 100%;
+  max-width: 960px; }
 
 /* Card */
 .card {
@@ -6838,6 +6860,15 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 4.0rem; }
+
+h2 {
+  font-size: 3.6rem; }
+
+h3 {
+  font-size: 3.2rem; }
+
+h4 {
+  font-size: 2.6rem; }
 
 /* Forms */
 .login-form #id_username,
@@ -6877,5 +6908,93 @@ h1 {
   color: #495057;
   font-size: 0.75rem;
   margin-bottom: 0.375rem; }
+
+/* Map Navigation Bar */
+#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100; }
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  background-color: #22292F;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px; }
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #dee2e6;
+  display: block;
+  transition: 0.3s; }
+
+.sidenav .nav-link:hover {
+  color: #F8FAFC;
+  transform: translateX(5px); }
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px; }
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px; }
+
+  .sidenav a {
+    font-size: 18px; } }
+/* Mark Location Button */
+.mark-location-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100; }
+
+/* Trashcan Cards */
+.missing-count,
+.full-count {
+  font-size: 1rem;
+  font-family: "IBM Plex Sans", sans-serif; }
+
+.action-buttons {
+  font-family: "IBM Plex Sans", sans-serif; }
+
+/* Profile */
+.hero-profile {
+  width: 100%;
+  max-width: 768px;
+  margin-top: 65px; }
+
+.user-profile-picture {
+  height: 100px;
+  width: 100px; }
+
+.user-info {
+  height: 100%;
+  max-height: 200px; }
+
+.user-achievement img {
+  height: 100px;
+  width: 100px; }
+
+.progress-bar {
+  height: 24px;
+  width: 200px;
+  background-color: #dee2e6; }
+
+.progress {
+  height: 100%;
+  width: 69%;
+  background-color: #a2f5bf; }
 
 /*# sourceMappingURL=styles.css.map */
