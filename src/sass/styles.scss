@@ -1,0 +1,134 @@
+/* Variables */
+
+$primary: #a2f5bf;
+$secondary: #79b9ec;
+
+$danger: #f17370;
+
+$dark: #22292F;
+$light: #F8FAFC;
+
+$black: #22292F;
+$white: #F8FAFC;
+
+$font-family-base: "IBM Plex Sans", sans-serif;
+
+/* Import */
+
+@import "bootstrap/bootstrap.scss";
+
+/* Document */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Helper Classes */
+
+.max-vh {
+  height: 100vh;
+}
+
+.max-vw {
+  width: 100vw;
+}
+
+.max-height {
+  width: 100%;
+  max-height: 100%;
+}
+
+.max-width {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Button */
+
+.btn,
+.btn-lg {
+  border-radius: 0;
+}
+
+/* Hero */
+
+.hero-container {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 768px;
+}
+
+.hero__main {
+  background-image: linear-gradient(rgba(21,21,21,0.5),rgba(21,21,21,0.5)),url(https://source.unsplash.com/eV2x6CmfIns);
+}
+
+/* Card */
+
+.card {
+  border-radius: 0;
+}
+
+.login-register-card {
+  max-width: 512px;
+}
+
+/* Text */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 4.0rem;
+}
+
+/* Forms */
+
+.login-form,
+.register-form {
+  #id_username,
+  #id_password,
+  #id_password2,
+  #id_email {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: black;
+    background-color: $white;
+    border: 1px solid $gray-400;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 0.375rem;
+  }
+
+  #id_username:focus,
+  #id_password:focus,
+  #id_password2:focus,
+  #id_email:focus {
+    border-color: lighten($primary, 10%);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.5);
+  }
+
+  br {
+    display: block;
+    content: "";
+    margin-top: 0;
+  }
+
+  .helptext {
+    color: $gray-700;
+    font-size: 0.75rem;
+    margin-bottom: 0.375rem;
+  }
+}
