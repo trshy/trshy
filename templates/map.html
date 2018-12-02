@@ -37,13 +37,12 @@
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: {lat: 42.346187, lng: -71.080837}
+                zoom: 12,
+                center: {lat: 42.336262, lng: -83.049790}
             });
         infoWindow = new google.maps.InfoWindow;
         var markers = [];
         {% for trashcan in trashcans %}
-            console.log("{{ trashcan.latitude }}");
             var location{{ forloop.counter0 }} = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
 
             var contentString{{ forloop.counter0 }} = '<p>Persones reported missing: {{ trashcan.missing_rating }}</p>' +
