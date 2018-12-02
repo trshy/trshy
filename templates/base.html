@@ -1,0 +1,11 @@
+{% load staticfiles%}
+<!--DOCTYPE html -->
+<html>
+	<head>
+		<title>{% block head_title %}Title {% endblock head_title %}</title>
+        {% block head_extra %} {% endblock head_extra %}
+	</head>
+	<body>
+        {% block content %}{% endblock content %}
+    </body>
+</html>
