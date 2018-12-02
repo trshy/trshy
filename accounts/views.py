@@ -46,7 +46,7 @@ def register_view(request):
 
 
 def change_password_view(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         raise Http404
     form = ChangePasswordForm(request.POST or None)
     context = {
