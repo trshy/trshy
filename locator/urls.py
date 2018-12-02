@@ -1,9 +1,12 @@
 from django.conf.urls import url
 
 from .views import (
-    test_view,
+    index_view,
+    profile_view,
 )
 
 urlpatterns = [
-    url(r'^$', test_view, name='index'),
+    url(r'^$', index_view, name='index'),
+    url(r'^profile/$', profile_view, name='profile'),
+
 ]

@@ -2,8 +2,9 @@
 {% block content %}
     {% if request.user.is_authenticated%}
         Hey {{ request.user.username }}<br>
-        <a href="logout">Logout</a>
-        <a href="change_profile">Change Password</a><br>
+        <a href="{% url 'locator:profile' %}">Profile</a>
+        <a href="achievements">Achievements</a>
+        <a href="map">Map</a>
     {% else %}
         <a href="login">Login</a><br>
         <a href="register">Register</a><br>
