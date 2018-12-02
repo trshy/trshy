@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="col-sm-6 col-sm-offset-3">
-        <h1>{{ title }}</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form}}
-            <input type="submit" class="btn btn-default" value="{{title}}">
-        </form>
+<div class="d-flex flex-column align-items-center justify-content-center
+    max-vh max-vw hero-container hero__main">
+    <div class="d-flex flex-column align-items-center justify-content-center
+    hero-content p-3">
+        <div class="card login-register-card max-width p-3">
+            <h1>{{ title }}</h1>
+            <form class="d-flex flex-column {{title | lower}}-form"method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" class="btn btn-primary mt-3" value="{{title}}">
+            </form>
+        </div>
+        <div class="back-to-home-container pt-3">
+            <a class="btn btn-primary" role="button" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="mr-1">
+                    <path fill="#22292F" d="M3 12l18-12v24z"></path>
+                </svg>
+                Back to Home
+            </a>
+        </div>
     </div>
+</div>
 {% endblock content %}
