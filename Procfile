@@ -1,0 +1,1 @@
+web: gunicorn trshy.wsgi --log-file -
