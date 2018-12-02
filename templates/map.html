@@ -38,15 +38,19 @@
                 zoom: 14,
                 center: {lat: 42.346187, lng: -71.080837}
             });
+        infoWindow = new google.maps.InfoWindow;
         {% for trashcan in trashcans %}
             console.log("{{ trashcan.latitude }}");
             var location{{ forloop.counter0 }} = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
 
-            var contentString{{ forloop.counter0 }} = '<p>lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}</p>';
+            var contentString{{ forloop.counter0 }} = '<p>Persones reported missing: {{ trashcan.missing_rating }}</p>' +
+                    '<p>Persones reported full: {{ trashcan.full_rating }}</p>' +
+                    '<ul>' +
+                        '<li><a href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a></li>' +
+                        '<li><a href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a></li>' +
+                        '<li><a href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=success">Successful Usage</a></li>' +
+                    '</ul>';
 
-            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
-                content: contentString{{ forloop.counter0 }}
-            });
 
             var marker{{ forloop.counter0 }} = new google.maps.Marker({
                 position: location{{ forloop.counter0 }},
@@ -54,7 +58,8 @@
                 title: 'Trash{{ forloop.counter0 }}'
             });
             google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function(){
-                infowindow{{ forloop.counter0 }}.open(map, this);
+                infoWindow.setContent(contentString{{ forloop.counter0 }})
+                infoWindow.open(map, this);
             });
         {% endfor %}
     }

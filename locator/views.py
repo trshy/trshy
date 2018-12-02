@@ -21,3 +21,21 @@ def map_view(request):
     trashcans = Trashcan.objects.all()
     print(trashcans[0])
     return render(request, "map.html", {"trashcans": trashcans, "api": API_KEY})
+
+
+def rate_view(request):
+    can_id = request.GET.get("id")
+    rate_type = request.GET.get("type")
+    trashcan = Trashcan.objects.all().filter(id=can_id)[0]
+    if rate_type == "full":
+        trashcan.full_rating += 1
+    elif rate_type == "missing":
+        trashcan.missing_rating += 1
+    elif rate_type == "success":
+        trashcan.full_rating = max(0, trashcan.full_rating - 1)
+        trashcan.missing_rating = max(0, trashcan.missing_rating - 1)
+    trashcan.save()
+    return redirect("../map")
+
+
+
