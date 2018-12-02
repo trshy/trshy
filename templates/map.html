@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Info Windows</title>
+    <title>Map</title>
     <style>
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
@@ -22,6 +22,15 @@
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
     {% load static from staticfiles %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#a2f5bf">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#00a300">
+    <meta name="msapplication-config" content="{% static 'img/browserconfig.xml' %}">
+    <meta name="theme-color" content="#a2f5bf">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -56,15 +65,16 @@
 
             var contentString{{ forloop.counter0 }} =
                 '<div class="reports">' +
-                '<p class="missing-count">Reported missing by <span class="font-weight-bold">{{ trashcan.missing_rating }} people</span></p>' +
-                '<p class="full-count">Reported missing by <span class="font-weight-bold">{{ trashcan.full_rating }} people</span></p>' +
+                '<p class="missing-count">Reported missing by <span class="font-weight-bold">{{ trashcan.missing_rating }} {% if trashcan.missing_rating == 1 %}person{% else %}people{% endif %}</span></p>' +
+                '<p class="full-count">Reported full by <span class="font-weight-bold">{{ trashcan.full_rating }} {% if trashcan.full_rating == 1 %}person{% else %}people{% endif %}</span></p>' +
                 '</div>' +
                 '<hr>' +
                 '<div class="d-flex flex-column action-buttons">' +
                 '<a class="btn btn-primary mb-2" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=success">Sucessful Usage</a>' +
-                '<a class="btn btn-danger mb-2" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a>' +
-                '<a class="btn btn-danger" role="button" href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a>' +
+                '<a class="btn btn-danger mb-2" role="button" href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a>' +
+                '<a class="btn btn-danger" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a>';
                 '</div>';
+
             var marker{{ forloop.counter0 }} = new google.maps.Marker({
                 position: location{{ forloop.counter0 }},
                 map: map,
@@ -109,6 +119,7 @@
         <a href="/" class="nav-link">Home</a>
         <a href="{% url 'locator:profile' %}" class="nav-link">Profile</a>
         <a href="{% url 'locator:map' %}" class="nav-link">Map</a>
+        <a href="{% url 'accounts:logout' %}" class="text-danger nav-link">Logout</a>
     </div>
 
     <div id="main" class="p-3">
