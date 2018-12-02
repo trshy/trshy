@@ -17,3 +17,4 @@ def csv_import():
             cnt += 1
 
 
+csv_import()

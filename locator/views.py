@@ -19,7 +19,6 @@ def map_view(request):
     if not request.user.is_authenticated:
         return redirect("/")
     trashcans = Trashcan.objects.all()
-    print(trashcans[0])
     return render(request, "map.html", {"trashcans": trashcans, "api": API_KEY})
 
 
