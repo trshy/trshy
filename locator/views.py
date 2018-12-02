@@ -19,6 +19,7 @@ def map_view(request):
     if not request.user.is_authenticated:
         return redirect("/")
     trashcans = Trashcan.objects.all()
+    print(*trashcans)
     return render(request, "map.html", {"trashcans": trashcans, "api": API_KEY})
 
 
@@ -35,6 +36,21 @@ def rate_view(request):
         trashcan.missing_rating = max(0, trashcan.missing_rating - 1)
     trashcan.save()
     return redirect("../map")
+
+
+def add_view(request):
+    lat = request.GET.get("lat")
+    lng = request.GET.get("lng")
+    check = Trashcan.objects.all().filter(latitude=lat, longitude=lng)
+    if not len(check):
+        trashcan = Trashcan()
+        trashcan.longitude = float(lat)
+        trashcan.latitude = float(lng)
+        trashcan.save()
+    else:
+        print("duplicate add attempt")
+    return redirect("../map")
+
 
 
 
