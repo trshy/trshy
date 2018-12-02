@@ -33,7 +33,7 @@
     // When the user clicks the marker, an info window opens.
 
     function bindInfoWindow(marker, map, infowindow, html) {
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
             infowindow.setContent(html);
             infowindow.open(map, this);
         });
@@ -41,17 +41,20 @@
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: {lat: 42.336262, lng: -83.049790},
-                mapTypeControl: false,
-                fullscreenControl: false
-            });
+            zoom: 14,
+            center: {lat: 42.336262, lng: -83.049790},
+            mapTypeControl: false,
+            fullscreenControl: false
+        });
+        // Try HTML5 geolocation.
+
+
         infoWindow = new google.maps.InfoWindow;
         var markers = [];
         {% for trashcan in trashcans %}
             var location{{ forloop.counter0 }} = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
 
-            var contentString{{ forloop.counter0 }} = 
+            var contentString{{ forloop.counter0 }} =
                 '<div class="reports">' +
                 '<p class="missing-count">Reported missing by <span class="font-weight-bold">{{ trashcan.missing_rating }} people</span></p>' +
                 '<p class="full-count">Reported missing by <span class="font-weight-bold">{{ trashcan.full_rating }} people</span></p>' +
@@ -62,20 +65,37 @@
                 '<a class="btn btn-danger mb-2" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a>' +
                 '<a class="btn btn-danger" role="button" href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a>' +
                 '</div>';
-
             var marker{{ forloop.counter0 }} = new google.maps.Marker({
                 position: location{{ forloop.counter0 }},
                 map: map,
                 title: 'Trash{{ forloop.counter0 }}'
             });
             markers.push(marker{{ forloop.counter0 }});
-            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function(){
+            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function () {
                 infoWindow.setContent(contentString{{ forloop.counter0 }});
                 infoWindow.open(map, this);
             });
         {% endfor %}
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                var geomarker = new google.maps.Marker({
+                    position: pos,
+                    icon: '{% static 'img/blue-dot.png' %}',
+                    map: map,
+                });
+            })
+        }
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+
+    function onAddClick() {
+        window.location.href += "add?lat=" + pos.lng + "&lng=" + pos.lat
     }
 
 </script>
@@ -88,7 +108,7 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/" class="nav-link">Home</a>
         <a href="{% url 'locator:profile' %}" class="nav-link">Profile</a>
-        <a href="map" class="nav-link">Map</a>
+        <a href="{% url 'locator:map' %}" class="nav-link">Map</a>
     </div>
 
     <div id="main" class="p-3">
@@ -99,7 +119,7 @@
 </div>
 
 <div class="mark-location-button p-3">
-    <button class="btn btn-lg btn-secondary">
+    <button class="btn btn-lg btn-secondary" onClick="onAddClick()">
         Mark Trashcan at My Location
     </button>
 </div>
