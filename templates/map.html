@@ -19,6 +19,10 @@
             padding: 0;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    {% load static from staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="map"></div>
@@ -37,22 +41,27 @@
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: {lat: 42.336262, lng: -83.049790}
+                zoom: 14,
+                center: {lat: 42.336262, lng: -83.049790},
+                mapTypeControl: false,
+                fullscreenControl: false
             });
         infoWindow = new google.maps.InfoWindow;
         var markers = [];
         {% for trashcan in trashcans %}
             var location{{ forloop.counter0 }} = {lat: {{ trashcan.latitude }}, lng: {{ trashcan.longitude }}};
 
-            var contentString{{ forloop.counter0 }} = '<p>Persones reported missing: {{ trashcan.missing_rating }}</p>' +
-                    '<p>Persones reported full: {{ trashcan.full_rating }}</p>' +
-                    '<ul>' +
-                        '<li><a href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a></li>' +
-                        '<li><a href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a></li>' +
-                        '<li><a href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=success">Successful Usage</a></li>' +
-                    '</ul>';
-
+            var contentString{{ forloop.counter0 }} = 
+                '<div class="reports">' +
+                '<p class="missing-count">Reported missing by <span class="font-weight-bold">{{ trashcan.missing_rating }} people</span></p>' +
+                '<p class="full-count">Reported missing by <span class="font-weight-bold">{{ trashcan.full_rating }} people</span></p>' +
+                '</div>' +
+                '<hr>' +
+                '<div class="d-flex flex-column action-buttons">' +
+                '<a class="btn btn-primary mb-2" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=success">Sucessful Usage</a>' +
+                '<a class="btn btn-danger mb-2" role="button" href="{% url 'locator:rate'%}?id={{ trashcan.id }}&type=full">Report Full</a>' +
+                '<a class="btn btn-danger" role="button" href="{% url 'locator:rate'%}%?id={{ trashcan.id }}&type=missing">Report Missing</a>' +
+                '</div>';
 
             var marker{{ forloop.counter0 }} = new google.maps.Marker({
                 position: location{{ forloop.counter0 }},
@@ -68,9 +77,43 @@
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key={{ api }}&callback=initMap">
+</script>
+
+<div class="navigation">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/" class="nav-link">Home</a>
+        <a href="{% url 'locator:profile' %}" class="nav-link">Profile</a>
+        <a href="map" class="nav-link">Map</a>
+    </div>
+
+    <div id="main" class="p-3">
+        <button class="btn btn-lg btn-primary" onclick="openNav()">
+            Menu
+        </button>
+    </div>
+</div>
+
+<div class="mark-location-button p-3">
+    <button class="btn btn-lg btn-secondary">
+        Mark Trashcan at My Location
+    </button>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.body.style.backgroundColor = "white";
+    }
 </script>
 </body>
 </html>

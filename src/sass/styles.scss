@@ -70,7 +70,7 @@ body {
 }
 
 .hero__main {
-  background-image: linear-gradient(rgba(21,21,21,0.5),rgba(21,21,21,0.5)),url(https://source.unsplash.com/eV2x6CmfIns);
+  background-image: linear-gradient(rgba(21,21,21,0.5),rgba(21,21,21,0.5)),url(("../img/hero.jpg"));
 }
 
 /* Card */
@@ -131,4 +131,74 @@ h1 {
     font-size: 0.75rem;
     margin-bottom: 0.375rem;
   }
+}
+
+/* Map Navigation Bar */
+
+#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  background-color: $black;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: $gray-300;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav .nav-link:hover {
+  color: $white;
+  transform: translateX(5px)
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+
+/* Mark Location Button */
+
+.mark-location-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* Trashcan Cards */
+
+.missing-count,
+.full-count {
+  font-size: 1rem;
+  font-family: $font-family-base;
+}
+
+.action-buttons {
+  font-family: $font-family-base;
 }
